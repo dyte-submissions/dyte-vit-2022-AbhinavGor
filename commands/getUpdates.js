@@ -4,6 +4,7 @@ import Configstore from 'configstore';
 import pkg from 'enquirer';
 import executeUpdates from "./executeUpdates.js";
 import checkVersion from "./checkVersion.js";
+import chalk from "chalk";
 
 const {prompt} = pkg;
 
@@ -40,13 +41,16 @@ export default async (repositoryLink) => {
 
     const updateIndices = update_indices.split(" ");
 
-
-    for(const i in updateIndices){
-        const repo = [{
-            url: repositoryLink,
-            version_satisfied: checkVersion(possibleUpdates[updateIndices[i]].dep_version, possibleUpdates[updateIndices[i]].latest_available_version)
-        }];
-        
-        executeUpdates(repo, possibleUpdates[updateIndices[i]].dep_name, possibleUpdates[updateIndices[i]].latest_available_version);
+    if(updateIndices.length > 1){
+        for(const i in updateIndices){
+            const repo = [{
+                url: repositoryLink,
+                version_satisfied: checkVersion(possibleUpdates[updateIndices[i]].dep_version, possibleUpdates[updateIndices[i]].latest_available_version)
+            }];
+            
+            executeUpdates(repo, possibleUpdates[updateIndices[i]].dep_name, possibleUpdates[updateIndices[i]].latest_available_version);
+        }
+    }else{
+        console.log(chalk.yellowBright("[*] No updates were requested by the user! Exiting."))
     }
 }
