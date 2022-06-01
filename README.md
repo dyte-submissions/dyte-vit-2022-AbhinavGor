@@ -120,7 +120,6 @@ You can also setup the project locally and run the commands.
     USER_NAME={your github username}
     USER_EMAIL={email associated with your github account}
     ```
-7. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
