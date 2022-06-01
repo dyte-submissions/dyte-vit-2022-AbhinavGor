@@ -3,10 +3,20 @@ import fetch from "node-fetch";
 import fs from "fs";
 import executeUpdates from "./executeUpdates.js";
 import checkVersion from './checkVersion.js';
+import getVersions from './getVersions.js';
+import chalk from "chalk";
+import { exit } from "process";
 
 global.finalRepos = [];
 
 export default async (filePath, packageName, update) => {
+    const availVersions = await getVersions(packageName.split("@")[0]);
+
+    if(! availVersions.has(packageName.split("@")[1])){
+        console.log(chalk.redBright(`[!] Version ${packageName.split("@")[1]} is not available for npm package ${packageName.split("@")[0]}. Please try again with a valid package version.`));
+        exit();
+    }
+
     const repos = [];
     fs.createReadStream(filePath)
         .pipe(csvParser())

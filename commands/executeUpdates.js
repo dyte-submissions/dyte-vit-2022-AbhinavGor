@@ -5,7 +5,6 @@ import { createPullRequest } from "octokit-plugin-create-pull-request";
 import Configstore from 'configstore';
 import checkVersion from './checkVersion.js';
 import pkg from 'enquirer';
-import { Console } from "console";
 
 const {prompt} = pkg;
 const executeUpdates = async (finalRepos, packageName, requiredVersion) => {
@@ -36,6 +35,8 @@ const executeUpdates = async (finalRepos, packageName, requiredVersion) => {
 
     config.set({ github_email });
     console.log("Github email stored successfully!");
+    
+    //Setup octokit with github token
     const octoClient = Octokit.plugin(createPullRequest);
     const octokit = new octoClient({
         auth: github_token

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
+import getUpdates from "./commands/getUpdates.js";
 import getStatus from './commands/index.js';
 
 program.description("Update all npm packages on your github projects");
@@ -19,13 +20,10 @@ program
         getStatus(opt.input, packageName, opt.Update);
     });
 
-program.command("login")
-        .requiredOption("-u, --username <username>", "Your github username.")
-        // .option("-e, --email <email>" ,"Email associated with your github account")
-        // .option("-a, --authKey <authKey>", "Your github access token")
-        .action(() => {
-            const opt = program.opts();
-            console.log(opt);
-        })
+program.command("get-updates")
+    .argument('<repository_link>', "Link of the repository to be checked")
+    .action((repositoryLink) => {
+        getUpdates(repositoryLink);
+    })
 
 program.parse(process.argv);
