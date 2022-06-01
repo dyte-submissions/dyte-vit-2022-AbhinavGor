@@ -19,4 +19,13 @@ program
         getStatus(opt.input, packageName, opt.Update);
     });
 
+program.command("login")
+        .requiredOption("-u, --username <username>", "Your github username.")
+        // .option("-e, --email <email>" ,"Email associated with your github account")
+        // .option("-a, --authKey <authKey>", "Your github access token")
+        .action(() => {
+            const opt = program.opts();
+            console.log(opt);
+        })
+
 program.parse(process.argv);

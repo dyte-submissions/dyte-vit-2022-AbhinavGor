@@ -1,13 +1,44 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { Octokit } from "@octokit/core"
-import { createPullRequest } from "octokit-plugin-create-pull-request"
+import { Octokit } from "@octokit/core";
+import { createPullRequest } from "octokit-plugin-create-pull-request";
+import Configstore from 'configstore';
 import checkVersion from './checkVersion.js';
+import pkg from 'enquirer';
+import { Console } from "console";
 
+const {prompt} = pkg;
 const executeUpdates = async (finalRepos, packageName, requiredVersion) => {
+    const config = new Configstore('github-creds');
+    const {github_token} = await prompt({
+        type: "password",
+        name: 'github_token',
+        message: 'Paste your github access token here:'
+    });
+
+    config.set({ github_token });
+    console.log("Github token stored successfully!");
+
+    const {github_username} = await prompt({
+        type: "text",
+        name: 'github_username',
+        message: 'Enter your github username'
+    });
+
+    config.set({ github_username });
+    console.log("Github username stored successfully!");
+
+    const {github_email} = await prompt({
+        type: "text",
+        name: 'github_email',
+        message: 'Enter your github username'
+    });
+
+    config.set({ github_email });
+    console.log("Github email stored successfully!");
     const octoClient = Octokit.plugin(createPullRequest);
     const octokit = new octoClient({
-        auth: process.env.GITHUB_TOKEN
+        auth: github_token
     });
 
     const updatedRepos = [];
@@ -39,8 +70,8 @@ const executeUpdates = async (finalRepos, packageName, requiredVersion) => {
                     repo: repoDetails[4],
                     message: commitMessage,
                     committer: {
-                        name: process.env.USER_NAME,
-                        email: process.env.USER_EMAIL
+                        name: github_username,
+                        email: github_email
                     },
                     content: base64Updates,
                     sha: fileSHA
@@ -51,10 +82,10 @@ const executeUpdates = async (finalRepos, packageName, requiredVersion) => {
             }
 
             const prDetails = {
-                owner: 'process.env.OWNER_NAME',
+                owner: github_username,
                 repo: repoDetails[4],
                 title: `Chores: Update npm package ${packageName} to ${requiredVersion}.`,
-                head: process.env.USER_NAME + ":main",
+                head: github_username + ":main",
                 base: 'main'
             }
             //make a PR with the updated changes
