@@ -1,9 +1,12 @@
 import csvParser from "csv-parser";
 import fetch from "node-fetch";
 import fs from "fs";
+import executeUpdates from "./executeUpdates.js";
+import checkVersion from './checkVersion.js';
 
-export default async (filePath, packageName) => {
-    var finalRepos = [];
+global.finalRepos = [];
+
+export default async (filePath, packageName, update) => {
     const repos = [];
     fs.createReadStream(filePath)
         .pipe(csvParser())
@@ -17,7 +20,7 @@ export default async (filePath, packageName) => {
 
             repos.push(repo);
         })
-        .on('end', () => {
+        .on('end', async () => {
             const packageRawUrls = [];
 
             // get the package.json file URL from github
@@ -29,48 +32,23 @@ export default async (filePath, packageName) => {
                 const packageDetails = packageName.split('@');
 
                 // get the package.json file contents from github
-                fetch(tempStr)
-                            .then(res => res.json())
-                            .then(json => {
-                                const deps = json.dependencies;
-                                const currentVersion = deps[packageDetails[0]].split("^")[1];
-                                const requiredVersion = packageDetails[1];
-                                const neaw = {...repos[i], version: currentVersion, version_satisfied: checkVersion(currentVersion, requiredVersion)};
-                                finalRepos.push(neaw);
-                                console.table(finalRepos);
-                            });
-                            // console.table(finalRepos);
-                            
+                
+                let response = await fetch(tempStr);
+                response = await response.json();
+                const deps = response.dependencies;
+                const currentVersion = deps[packageDetails[0]].split("^")[1];
+                const requiredVersion = packageDetails[1];
+                const finalRepo = {...repos[i], version: currentVersion, version_satisfied: checkVersion(currentVersion, requiredVersion)};
+                finalRepos.push(finalRepo);                            
             }
+
+            console.table(finalRepos);
+            const packageDetails = packageName.split('@');
+
+            //check if the user has requested for updates
+            if(update){
+                executeUpdates(finalRepos, packageDetails[0], packageDetails[1]);
+            }
+            
         });
-        
 }
-
-function checkVersion(packageVersion, requiredVersion) {
-    const packageVersionparts = packageVersion.split('.');
-    const requiredVersionparts = requiredVersion.split('.');
-
-    console.log({requiredVersionparts, packageVersionparts});
-    for (var i = 0; i < packageVersionparts.length; ++i) {
-        if (requiredVersionparts.length == i) {
-            return true;
-        }
-
-        if (packageVersionparts[i] == requiredVersionparts[i]) {
-            continue;
-        }
-        else if (packageVersionparts[i] > requiredVersionparts[i]) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    if (packageVersionparts.length != requiredVersionparts.length) {
-        return false;
-    }
-
-    return true;
-}
-

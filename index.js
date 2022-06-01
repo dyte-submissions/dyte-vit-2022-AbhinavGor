@@ -13,9 +13,10 @@ program.name("agcli")
 program
     .argument('<package_name@version>', "Name and version of the npm package to be tested")
     .option('-i, --input <input_file_path>', 'blue')
+    .option('-update')
     .action((packageName) => {
         const opt = program.opts();
-        getStatus(opt.input, packageName);
+        getStatus(opt.input, packageName, opt.Update);
     });
 
 program.parse(process.argv);
