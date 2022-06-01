@@ -88,13 +88,10 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
+To use this package, you can install it directly from npmjs.org using the package manager, npm.
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+You can install my npm package, [agcli](https://www.npmjs.com/package/agcli) using the following command.
 * npm
   ```sh
   npm install agcli@latest -g
@@ -102,7 +99,9 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free Github developer Auth key at [https://github.com/settings/tokens](https://github.com/settings/tokens).
+You can also setup the project locally and run the commands.
+
+1. Get a Github developer Auth key at [https://github.com/settings/tokens](https://github.com/settings/tokens).
 2. Clone the repo
    ```sh
    git clone https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor.git
@@ -130,9 +129,29 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+1. This command checks if any of the repositories listed in the csv file have an older version of the package and version specified. The "```-update```" flag takes control of updating the specified package.
+   ```sh 
+   agcli -i <input_repositories_csv_file> <package_name@version> -update
+   ```
+   ![command-screenshot-1]
+2. The command shown above can also be used without the "```-update```" flag as shown below.
+   ```sh 
+   agcli -i <input_repositories_csv_file> <package_name@version>
+   ```
+   ![command-screenshot-2]
+3. If the specified version number of the package does not exist, then an error is thrown as shown below.
+   ![command-screenshot-3]
+4. The ```get-updates <repository_url>``` command allows users to get the latest version of all the npm packages being used in the specified github project.
+   ```sh 
+   agcli get-updates <repository_url>
+   ```
+   ![command-screenshot-4]
+5. The users can then specifiy the indices of the dependencies in the table which they want to update, PRs are made to update those npm packages.
+   ![command-screenshot-5]
+6. Help can be accessed using the following command:
+   ```sh 
+   agcli --help
+   ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -141,10 +160,11 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [x] Compare the version of the npm package in the project and the one specified by the user in the command and tell if the version is satisfied or not.
+  - [x] Check if the version of the package specified by user actually exists for that particular npm package or not. Implemented using [pkg-versions](https://www.npmjs.com/package/pkg-versions).
+- [x] If the version is not satisfied in the above step, make a PR to the repository mentioned to update the npm package to the required version.
+- [x] ```get-updates``` command - Check if all the packages are up to date in a given github project and report result.
+    - [ ] If the version of the packages is not the latest, ask the user which ones they want to update and make PR to update those packages.
 
 See the [open issues](https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor/issues) for a full list of proposed features (and known issues).
 
@@ -216,3 +236,8 @@ Project Link: [https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor](htt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
+[command-screenshot-1]: images/command_demo1.png
+[command-screenshot-2]: images/command_demo2.png
+[command-screenshot-3]: images/command_demo3.png
+[command-screenshot-4]: images/command_demo4.png
+[command-screenshot-5]: images/command_demo5.png
