@@ -1,23 +1,6 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=7942261&assignment_repo_type=AssignmentRepo)
 <div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -30,23 +13,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">agCLI</h3>
 
   <p align="center">
-    project_description
+    A command line tool built using NodeJS to help update npm packages on github repositories.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor/issues">Request Feature</a>
   </p>
 </div>
 
@@ -85,7 +68,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+<!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `dyte-submissions`, `dyte-vit-2022-AbhinavGor`, `twitter_handle`, `linkedin_username`, `gmail`, `abhinav20016`, `agCLI`, `A command line tool built using NodeJS to help update npm packages on github repositories.` -->
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -93,14 +76,11 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* [Node.js](https://nodejs.org/)
+* [Commander](https://www.npmjs.com/package/commander)
+* [Github API](https://docs.github.com/en)
+* [octokit.js](https://github.com/octokit/octokit.js)
+* [Inquirer.js](https://www.npmjs.com/package/inquirer)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -108,33 +88,38 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
+To use this package, you can install it directly from npmjs.org using the package manager, npm.
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+You can install my npm package, [agcli](https://www.npmjs.com/package/agcli) using the following command.
 * npm
   ```sh
-  npm install npm@latest -g
+  npm install agcli@latest -g
   ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+You can also setup the project locally and run the commands.
+
+1. Get a Github developer Auth key at [https://github.com/settings/tokens](https://github.com/settings/tokens).
 2. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor.git
    ```
 3. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
+4. Change the name of .example.env to .env.
+5. Enter your API in `.env`
    ```js
-   const API_KEY = 'ENTER YOUR API';
+   const GITHUB_TOKEN = {ENTER YOUR Auth token};
    ```
+6. Enter your github username and password in `.env` file.
+    ```js
+    USER_NAME={your github username}
+    USER_EMAIL={email associated with your github account}
+    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -143,9 +128,29 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+1. This command checks if any of the repositories listed in the csv file have an older version of the package and version specified. The "```-update```" flag takes control of updating the specified package.
+   ```sh 
+   agcli -i <input_repositories_csv_file> <package_name@version> -update
+   ```
+   ![command-screenshot-1]
+2. The command shown above can also be used without the "```-update```" flag as shown below.
+   ```sh 
+   agcli -i <input_repositories_csv_file> <package_name@version>
+   ```
+   ![command-screenshot-2]
+3. If the specified version number of the package does not exist, then an error is thrown as shown below.
+   ![command-screenshot-3]
+4. The ```get-updates <repository_url>``` command allows users to get the latest version of all the npm packages being used in the specified github project.
+   ```sh 
+   agcli get-updates <repository_url>
+   ```
+   ![command-screenshot-4]
+5. The users can then specifiy the indices of the dependencies in the table which they want to update, PRs are made to update those npm packages.
+   ![command-screenshot-5]
+6. Help can be accessed using the following command:
+   ```sh 
+   agcli --help
+   ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -154,12 +159,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [x] Compare the version of the npm package in the project and the one specified by the user in the command and tell if the version is satisfied or not.
+  - [x] Check if the version of the package specified by user actually exists for that particular npm package or not. Implemented using [pkg-versions](https://www.npmjs.com/package/pkg-versions).
+- [x] If the version is not satisfied in the above step, make a PR to the repository mentioned to update the npm package to the required version.
+- [x] ```get-updates``` command - Check if all the packages are up to date in a given github project and report result.
+    - [ ] If the version of the packages is not the latest, ask the user which ones they want to update and make PR to update those packages.
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -195,20 +201,20 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Abhinav Gorantla - abhinav20016@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor](https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+<!-- ## Acknowledgments
 
 * []()
 * []()
-* []()
+* []() -->
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -216,16 +222,21 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/dyte-submissions/dyte-vit-2022-AbhinavGor.svg?style=for-the-badge
+[contributors-url]: https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/dyte-submissions/dyte-vit-2022-AbhinavGor.svg?style=for-the-badge
+[forks-url]: https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor/network/members
+[stars-shield]: https://img.shields.io/github/stars/dyte-submissions/dyte-vit-2022-AbhinavGor.svg?style=for-the-badge
+[stars-url]: https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor/stargazers
+[issues-shield]: https://img.shields.io/github/issues/dyte-submissions/dyte-vit-2022-AbhinavGor.svg?style=for-the-badge
+[issues-url]: https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor/issues
+[license-shield]: https://img.shields.io/github/license/dyte-submissions/dyte-vit-2022-AbhinavGor.svg?style=for-the-badge
+[license-url]: https://github.com/dyte-submissions/dyte-vit-2022-AbhinavGor/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
+[command-screenshot-1]: images/command_demo1.png
+[command-screenshot-2]: images/command_demo2.png
+[command-screenshot-3]: images/command_demo3.png
+[command-screenshot-4]: images/command_demo4.png
+[command-screenshot-5]: images/command_demo5.png
