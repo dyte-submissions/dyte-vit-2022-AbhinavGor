@@ -67,7 +67,7 @@ const executeUpdates = async (finalRepos, packageName, requiredVersion) => {
                 const commitMessage = `Chores: Update npm package ${packageName} to ${requiredVersion}.`;
 
                 const commitDetails = {
-                    owner: 'AbhinavGor',
+                    owner: github_username,
                     repo: repoDetails[4],
                     message: commitMessage,
                     committer: {
@@ -79,7 +79,7 @@ const executeUpdates = async (finalRepos, packageName, requiredVersion) => {
                 }
 
                 //make a commit with the changes
-                // await octokit.request(`PUT /repos/AbhinavGor/${repoDetails[4]}/contents/package.json`, commitDetails);
+                await octokit.request(`PUT /repos/${github_username}/${repoDetails[4]}/contents/package.json`, commitDetails);
             }
 
             const prDetails = {

@@ -2,11 +2,12 @@ import fetch from "node-fetch";
 import getVersions from "./getVersions.js";
 import Configstore from 'configstore';
 import pkg from 'enquirer';
+import executeUpdates from "./executeUpdates.js";
+import checkVersion from "./checkVersion.js";
 
 const {prompt} = pkg;
 
 export default async (repositoryLink) => {
-    const repoLinkRetails = repositoryLink.split("/");
     const rawStr = "https://raw.githubusercontent.com/" + repositoryLink.split(".com")[1] + "/main/package.json";
 
     const possibleUpdates = [];
@@ -18,7 +19,7 @@ export default async (repositoryLink) => {
         const availVerions = await getVersions(deps[i]);
         possibleUpdates.push({
             dep_name: deps[i],
-            dep_version: versions[i],
+            dep_version: versions[i].split("^")[1],
             latest_available_version: [...availVerions].pop()
         });
     }
@@ -30,12 +31,22 @@ export default async (repositoryLink) => {
     const {update_indices} = await prompt({
         type: "text",
         name: 'update_indices',
-        message: 'Enter the indices of the packages which you want to update:'
+        message: 'Enter the indices of the packages which you want to update (separate each index with a space):'
     });
 
     config.set({ update_indices });
 
     //Update the required packages
 
-    
+    const updateIndices = update_indices.split(" ");
+
+
+    for(const i in updateIndices){
+        const repo = [{
+            url: repositoryLink,
+            version_satisfied: checkVersion(possibleUpdates[updateIndices[i]].dep_version, possibleUpdates[updateIndices[i]].latest_available_version)
+        }];
+        
+        executeUpdates(repo, possibleUpdates[updateIndices[i]].dep_name, possibleUpdates[updateIndices[i]].latest_available_version);
+    }
 }
