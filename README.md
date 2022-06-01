@@ -68,7 +68,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `dyte-submissions`, `dyte-vit-2022-AbhinavGor`, `twitter_handle`, `linkedin_username`, `gmail`, `abhinav20016`, `agCLI`, `A command line tool built using NodeJS to help update npm packages on github repositories.`
+<!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `dyte-submissions`, `dyte-vit-2022-AbhinavGor`, `twitter_handle`, `linkedin_username`, `gmail`, `abhinav20016`, `agCLI`, `A command line tool built using NodeJS to help update npm packages on github repositories.` -->
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
